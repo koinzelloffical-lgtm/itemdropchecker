@@ -1,0 +1,224 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0912">
+  <title>ItemDropChecker | Gaming Community</title>
+  <meta name="description" content="ItemDropChecker oyun topluluğu, CoinShop, oyun araçları ve oyun keşif platformu.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <a class="logo" href="#">
+      <span class="logo-icon">ID</span>
+      <span>ItemDrop<span class="accent">Checker</span></span>
+    </a>
+
+    <button class="menu-toggle" id="menuToggle" aria-label="Menüyü aç" aria-expanded="false">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#games">Oyunlar</a>
+      <a href="#coinshop">CoinShop</a>
+      <a href="#tools">Araçlar</a>
+      <a href="#community">Topluluk</a>
+    </nav>
+
+    <a class="nav-button" href="#coinshop">🪙 CoinShop</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-badge"><span class="status-dot"></span> OYUN DÜNYANA HOŞ GELDİN</div>
+
+      <h1>OYUN DÜNYAN<br> <span class="gradient-text">BURADA BAŞLIYOR.</span></h1>
+
+      <p class="hero-description">
+        Oyunları keşfet, topluluğa katıl, coin biriktir ve CoinShop ödüllerini incele.
+        Hepsi tek bir yerde.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#games" class="button button-primary">Keşfet <span>→</span></a>
+        <a href="#community" class="button button-secondary">Topluluğa katıl</a>
+      </div>
+
+      <div class="hero-stats">
+        <div><strong>06</strong><span>Oyun kategorisi</span></div>
+        <div><strong>IDC</strong><span>Coin sistemi</span></div>
+        <div><strong>∞</strong><span>Keşfedilecek şey</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="games">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">OYUN MERKEZİ</span>
+          <h2>Oyununu seç<span class="accent">.</span></h2>
+        </div>
+        <p>Favori oyununa göz at.</p>
+      </div>
+
+      <div class="game-grid">
+        <a class="game-card valorant" href="#tools">
+          <span class="game-number">01</span>
+          <span class="game-emoji">🎯</span>
+          <h3>VALORANT</h3>
+          <span class="game-link">Keşfet ↗</span>
+        </a>
+
+        <a class="game-card steam" href="#tools">
+          <span class="game-number">02</span>
+          <span class="game-emoji">🎮</span>
+          <h3>STEAM</h3>
+          <span class="game-link">Keşfet ↗</span>
+        </a>
+
+        <a class="game-card brawl" href="#tools">
+          <span class="game-number">03</span>
+          <span class="game-emoji">⭐</span>
+          <h3>BRAWL STARS</h3>
+          <span class="game-link">Keşfet ↗</span>
+        </a>
+
+        <a class="game-card pes" href="#tools">
+          <span class="game-number">04</span>
+          <span class="game-emoji">⚽</span>
+          <h3>PES / eFOOTBALL</h3>
+          <span class="game-link">Keşfet ↗</span>
+        </a>
+
+        <a class="game-card lol" href="#tools">
+          <span class="game-number">05</span>
+          <span class="game-emoji">🛡️</span>
+          <h3>LEAGUE OF LEGENDS</h3>
+          <span class="game-link">Keşfet ↗</span>
+        </a>
+
+        <a class="game-card roblox" href="#tools">
+          <span class="game-number">06</span>
+          <span class="game-emoji">🧱</span>
+          <h3>ROBLOX</h3>
+          <span class="game-link">Keşfet ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="coin-section" id="coinshop">
+      <div class="coin-copy">
+        <span class="eyebrow">ÖDÜLÜNÜ KENDİN KAZAN</span>
+        <h2>Coin biriktir.<br><span class="gold-text">Ödülleri keşfet.</span></h2>
+        <p>Günlük ödüller, topluluk etkinlikleri ve CoinShop tek bir yerde buluşuyor.</p>
+        <a href="#community" class="button button-gold">CoinShop'u keşfet →</a>
+      </div>
+      <div class="coin-art" aria-hidden="true">
+        <div class="coin-ring"></div>
+        <div class="coin-symbol">C</div>
+        <span class="coin-spark spark-one">✦</span>
+        <span class="coin-spark spark-two">✧</span>
+      </div>
+    </section>
+
+    
+<section class="section" id="tools">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">OYUN YARDIMCILARI</span>
+      <h2>Oyun araçları<span class="accent">.</span></h2>
+    </div>
+    <p>Ücretsiz araçlarını kullan!</p>
+  </div>
+
+  <div class="feature-grid">
+    <article class="feature-card">
+      <span class="feature-icon">🎭</span>
+      <h3>Nick Oluşturucu</h3>
+      <p>Oyunlar için rastgele nick üret.</p>
+      <button type="button" onclick="aracCalistir('nick')">
+        Nick üret
+      </button>
+      <p id="nickSonuc" aria-live="polite">Sonucun burada görünecek.</p>
+      <button type="button" onclick="sonucuKopyala('nickSonuc')">
+        Kopyala
+      </button>
+    </article>
+
+    <article class="feature-card">
+      <span class="feature-icon">⚔️</span>
+      <h3>Takım Adı Oluşturucu</h3>
+      <p>Takımına yeni bir isim bul.</p>
+      <button type="button" onclick="aracCalistir('takim')">
+        Takım adı üret
+      </button>
+      <p id="takimSonuc" aria-live="polite">Sonucun burada görünecek.</p>
+      <button type="button" onclick="sonucuKopyala('takimSonuc')">
+        Kopyala
+      </button>
+    </article>
+
+    <article class="feature-card">
+      <span class="feature-icon">🎮</span>
+      <h3>Rastgele Oyun Seçici</h3>
+      <p>Ne oynayacağına karar veremiyor musun?</p>
+      <button type="button" onclick="aracCalistir('oyun')">
+        Oyun seç
+      </button>
+      <p id="oyunSonuc" aria-live="polite">Seçilen oyun burada görünecek.</p>
+    </article>
+  </div>
+</section>
+
+<section class="community-section" id="community">
+  <span class="eyebrow">BİRLİKTE DAHA GÜÇLÜ</span>
+  <h2>Genel Sohbet 💬</h2>
+  <p>Topluluğa katıl, diğer kullanıcılarla sohbet et.</p>
+
+  <div class="chat-container">
+    <div id="chat-messages" class="chat-messages">
+      <p>Mesajlar yükleniyor...</p>
+    </div>
+
+    <form id="chat-form" class="chat-form">
+      <input
+        type="text"
+        id="chat-username"
+        placeholder="Kullanıcı adın"
+        maxlength="24"
+        required
+      >
+
+      <input
+        type="text"
+        id="chat-input"
+        placeholder="Mesajını yaz..."
+        maxlength="500"
+        required
+      >
+
+      <button type="submit" class="button button-primary">
+        Gönder
+      </button>
+    </form>
+    <p id="chat-status" class="small-note"></p>
+  </div>
+
+  <a class="button button-secondary" href="https://discord.com/"
+     target="_blank" rel="noopener noreferrer">
+    Discord'u aç ↗
+  </a>
+</section>
+  </main>
+
+  <footer class="footer">
+    <a class="logo" href="#"><span class="logo-icon">ID</span><span>ItemDrop<span class="accent">Checker</span></span></a>
+    <p>© 2026 ItemDropChecker · Oyun topluluğu</p>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>

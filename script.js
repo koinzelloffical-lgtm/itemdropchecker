@@ -230,3 +230,179 @@ if (chatMessages && chatForm && chatUsername && chatInput) {
   mesajlariYukle();
   setInterval(mesajlariYukle, 5000);
 }
+
+/* Özel hesap paneli */
+(() => {
+  const loginForm = document.getElementById("account-login-form");
+  const addForm = document.getElementById("account-add-form");
+  const statusEl = document.getElementById("account-status");
+  const dashboard = document.getElementById("account-dashboard");
+  const listEl = document.getElementById("account-list");
+  const logoutBtn = document.getElementById("account-logout");
+
+  if (!loginForm || !addForm || !statusEl || !dashboard || !listEl || !logoutBtn) return;
+
+  let currentUser = null;
+
+  function showStatus(message) {
+    statusEl.textContent = message;
+  }
+
+  function updatePanel(signedIn) {
+    dashboard.hidden = !signedIn;
+    loginForm.hidden = signedIn;
+  }
+
+  async function loadAccounts() {
+    if (!currentUser) return;
+
+    listEl.replaceChildren();
+
+    const { data, error } = await supabaseClient
+      .from("valorant_accounts")
+      .select("id, account_label, level, status, created_at")
+      .eq("user_id", currentUser.id)
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      showStatus("Kayıtlar yüklenemedi: " + error.message);
+      return;
+    }
+
+    if (!data || data.length === 0) {
+      listEl.textContent = "Henüz kayıt eklemedin.";
+      return;
+    }
+
+    data.forEach((account) => {
+      const item = document.createElement("div");
+      item.className = "account-item";
+
+      const title = document.createElement("h4");
+      title.textContent = account.account_label;
+
+      const details = document.createElement("p");
+      details.textContent =
+        "Oyun: Valorant · Seviye: " +
+        (account.level ?? "Belirtilmedi") +
+        " · Durum: " + account.status;
+
+      const date = document.createElement("small");
+      date.textContent = new Date(account.created_at).toLocaleDateString("tr-TR");
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.type = "button";
+      deleteBtn.className = "button button-secondary";
+      deleteBtn.textContent = "Kaydı sil";
+
+      deleteBtn.addEventListener("click", async () => {
+        if (!confirm("Bu kaydı silmek istiyor musun?")) return;
+
+        const { error: deleteError } = await supabaseClient
+          .from("valorant_accounts")
+          .delete()
+          .eq("id", account.id)
+          .eq("user_id", currentUser.id);
+
+        if (deleteError) {
+          showStatus("Silinemedi: " + deleteError.message);
+          return;
+        }
+
+        showStatus("Kayıt silindi.");
+        await loadAccounts();
+      });
+
+      item.append(title, details, date, deleteBtn);
+      listEl.appendChild(item);
+    });
+  }
+
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    showStatus("Giriş yapılıyor...");
+
+    const email = document.getElementById("account-email").value.trim();
+    const password = document.getElementById("account-password").value;
+
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password
+    });
+
+    if (error) {
+      showStatus("Giriş başarısız. E-posta ve şifreni kontrol et.");
+      return;
+    }
+
+    currentUser = data.user;
+    document.getElementById("account-password").value = "";
+    updatePanel(true);
+    showStatus("Giriş başarılı!");
+    await loadAccounts();
+  });
+
+  addForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!currentUser) return;
+
+    const label = document.getElementById("account-label").value.trim();
+    const levelInput = document.getElementById("account-level").value;
+    const level = levelInput ? Number(levelInput) : null;
+
+    if (!label) {
+      showStatus("Bir kayıt etiketi yaz.");
+      return;
+    }
+
+    const { error } = await supabaseClient
+      .from("valorant_accounts")
+      .insert({
+        user_id: currentUser.id,
+        account_label: label,
+        level
+      });
+
+    if (error) {
+      showStatus("Kayıt eklenemedi: " + error.message);
+      return;
+    }
+
+    addForm.reset();
+    showStatus("Kayıt eklendi!");
+    await loadAccounts();
+  });
+
+  logoutBtn.addEventListener("click", async () => {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+      showStatus("Çıkış yapılamadı.");
+      return;
+    }
+
+    currentUser = null;
+    listEl.replaceChildren();
+    updatePanel(false);
+    showStatus("Çıkış yaptın.");
+  });
+
+  async function initPanel() {
+    updatePanel(false);
+
+    const { data, error } = await supabaseClient.auth.getSession();
+
+    if (error) {
+      showStatus("Oturum kontrol edilemedi.");
+      return;
+    }
+
+    if (data.session) {
+      currentUser = data.session.user;
+      updatePanel(true);
+      await loadAccounts();
+    }
+  }
+
+  initPanel();
+})();

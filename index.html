@@ -28,7 +28,7 @@
     <a class="nav-button" href="#coinshop">🪙 CoinShop</a>
   </header>
 
-  <main>
+  >
     <section class="hero">
       <div class="hero-badge"><span class="status-dot"></span> OYUN DÜNYANA HOŞ GELDİN</div>
 
@@ -60,7 +60,7 @@
         <p>Favori oyununa göz at.</p>
       </div>
 
-      <div class="game-grid">
+      <div class="game-grid"><main
         <a class="game-card valorant" href="#tools">
           <span class="game-number">01</span>
           <span class="game-emoji">🎯</span>
@@ -208,6 +208,41 @@
     Discord'u aç ↗
   </a>
 </section>
+
+  <section class="section" id="account-panel">
+    <h2>Özel Hesap Paneli</h2>
+    <p>Sadece kendi hesabınla giriş yaparak kayıtlarını yönet.</p>
+
+    <form id="account-login-form">
+      <label for="account-email">E-posta</label>
+      <input id="account-email" type="email" placeholder="E-posta adresin" required>
+
+      <label for="account-password">Şifre</label>
+      <input id="account-password" type="password" placeholder="Site giriş şifren" required>
+
+      <button class="button button-primary" type="submit">Giriş yap</button>
+    </form>
+
+    <p id="account-status" class="small-note"></p>
+
+    <div id="account-dashboard" hidden>
+      <h3>Hesap kayıtlarım</h3>
+
+      <form id="account-add-form">
+        <label for="account-label">Kayıt etiketi</label>
+        <input id="account-label" type="text" placeholder="Ör. Valorant hesabı 1" maxlength="80" required>
+
+        <label for="account-level">Seviye (isteğe bağlı)</label>
+        <input id="account-level" type="number" min="1" max="10000" placeholder="Seviye">
+
+        <button class="button button-primary" type="submit">Kayıt ekle</button>
+      </form>
+
+      <div id="account-list"></div>
+      <button id="account-logout" class="button button-secondary" type="button">Çıkış yap</button>
+    </div>
+  </section>
+
   </main>
 
   <footer class="footer">
@@ -217,7 +252,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="script.js"></script>
-
 </body>
 </html>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
